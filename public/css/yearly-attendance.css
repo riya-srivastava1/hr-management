@@ -1,0 +1,156 @@
+    .table-responsive {
+        overflow: auto;
+        max-height: calc(100vh - 50px) !important;
+        position: relative;
+    }
+
+    p.solid {border-style: solid;}
+
+    /* width */
+    .table-responsive::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    /* Track */
+    .table-responsive::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    /* Handle on hover */
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+
+    .table-responsive table tr th,
+    .table-responsive table tr td {
+        /* opacity: 0.4; */
+        /* pointer-events: none; */
+        user-select: none;
+        z-index:888;
+        min-width: 80px;
+
+
+    }
+
+    .table-responsive table tr td div {
+        width: max-content;
+        float: left;
+    }
+
+    .table-responsive table tr th:first-child,
+    .table-responsive table tr th:nth-child(2),
+    .table-responsive table tr td:first-child,
+    .table-responsive table tr td:nth-child(2) {
+        opacity: 1;
+        pointer-events: all;
+        user-select: all;
+        position: sticky;
+        left: -1px;
+        background: #fff;
+        z-index: 1610;
+        border:none;
+        /* padding: 0 1px !important; */
+
+    }
+
+
+
+    /* temporary fix */
+    .table-responsive table tr th:first-child::after,
+    .table-responsive table tr th:nth-child(2)::after,
+    .table-responsive table tr td:first-child::after,
+    .table-responsive table tr td:nth-child(2)::after{
+        position: absolute;
+        width:100%;
+        height:100%;
+        top:0;
+        left:0;
+        content:'';
+        border:0.5px solid rgba(0,0,0,0.07);
+        border-bottom:none;
+        z-index:1611;
+    }
+
+    .table-responsive table tr td:first-child::after{
+        left:1px;
+        border-right:none;
+    }
+
+
+    .table-responsive table tr th:nth-child(2),
+    .table-responsive table tr td:nth-child(2) {
+        position: sticky !important;
+        left: 64px;
+        z-index: 1610;
+    }
+
+    .title-row {
+        position: sticky;
+        top: 0;
+        left: 0;
+        height: 50px;
+        z-index: 1700;
+        /* border:1px solid red; */
+        background: #fff;
+    }
+
+    .header-row {
+        position: sticky;
+        top: 49px;
+        left: 0;
+        background: #fff;
+        z-index: 1700;
+        /* border:1px solid blue; */
+
+    }
+
+
+    .header-row::after{
+        position: absolute;
+        width:100%;
+        height:100%;
+        top:0;
+        left:0;
+        content:'';
+        border:0.5px solid rgba(0,0,0,0.07);
+        border-bottom:2px solid #000;
+
+        z-index:1701;
+
+    }
+
+    .active-cell {
+        opacity: 1 !important;
+        pointer-events: all !important;
+        user-select: all !important;
+
+    }
+</style>
+
+
+<script>
+    let headerRow = document.querySelector('.header-row');
+    let theads = headerRow.children;
+    let currentDate = document.querySelector('.current-date').textContent.trim();
+    let index = 0;
+
+    for (index; index < theads.length; index++) {
+        let headContent = theads[index].textContent.trim();
+        if (headContent.includes(currentDate)) {
+            console.log(index);
+            break;
+        }
+    }
+
+    let rows = document.querySelectorAll('.table-responsive  tr');
+    console.log(rows[0].children[9])
+    rows.forEach((row) => {
+        let cells = row.children;
+        cells[index].classList.add('active-cell');
+    })
